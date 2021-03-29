@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Mine-Sweeper</title>
+</head>
+
+<body onload="init()">
+    <h2>Mine Sweeper</h2>
+    <div class ="top-menu">
+        <button disabled class="flag"><span></span>FLAG COUNT:</span>
+        <button><span class="restart" onclick="restart(this)">🙂</span>
+        <button disabled class="timer"> <span id="minutes" ></span>:<span id="seconds" class="timer">:</span></button>
+    </div>
+    <div class="lifes"></div>
+    <!-- <div class="hints" onclick="getHint()"></div> -->
+    <div class="best-score"></div>
+    <div class="board-container"></div>
+    <button class ="level" data-l ="4" data-m="2" onclick="changeLevel(this)">Easy</button>
+    <button class ="level" data-l ="8" data-m="10" onclick="changeLevel(this)">Medium</button>
+    <button class ="level" data-l ="12" data-m="14" onclick="changeLevel(this)">hard</button>
+    <button class ="scores"  onclick="reSetScores()">Scores-Reset</button>
+
+
+
+    <script src="js/utils.js"></script>
+    <script src="js/sweepmine.js"></script>
+    <script src="js/mines.js"></script>
+</body>
+
+</html>
