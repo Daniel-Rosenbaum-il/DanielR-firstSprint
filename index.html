@@ -1,35 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/bg-style.css" />
+    <title>Minesweeper</title>
+  </head>
+  <body onload="init()">
+    <div id="sun"></div>
+    <div id="sunSet"></div>
+    <div id="sky"></div>
+    <div id="horizon"></div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <title>Mine-Sweeper</title>
-</head>
+    <div id="division"></div>
 
-<body onload="init()">
-    <h2>Mine Sweeper</h2>
-    <div class ="top-menu">
-        <button disabled class="flag"><span></span>FLAG COUNT:</span>
-        <button><span class="restart" onclick="restart(this)">🙂</span>
-        <button disabled class="timer"> <span id="minutes" ></span>:<span id="seconds" class="timer">:</span></button>
+    <div id="water"></div>
+
+    <div id="waterReflectionContainer">
+      <div id="waterReflectionMiddle"></div>
     </div>
-    <div class="lifes"></div>
-    <!-- <div class="hints" onclick="getHint()"></div> -->
-    <div class="best-score"></div>
-    <div class="board-container"></div>
-    <button class ="level" data-l ="4" data-m="2" onclick="changeLevel(this)">Easy</button>
-    <button class ="level" data-l ="8" data-m="10" onclick="changeLevel(this)">Medium</button>
-    <button class ="level" data-l ="12" data-m="14" onclick="changeLevel(this)">hard</button>
-    <button class ="scores"  onclick="reSetScores()">Scores-Reset</button>
 
+    <div id="waterDistance"></div>
+    <div id="oceanRippleContainer"></div>
+    <div id="oceanRipple"></div>
 
+    <div id="wholeship">
+      <div id="ship-container">
+        <div class="ship">
+          <div class="smokestack ss1">
+            <div class="smoke smoke1"></div>
+          </div>
+          <div class="smokestack ss2"><div class="smoke smoke2"></div></div>
+          <div class="smokestack ss3"><div class="smoke smoke3"></div></div>
+          <div class="smokestack ss4"><div class="smoke smoke4"></div></div>
+          <div class="deck">
+            <div class="compartments-lower">
+              <div class="door d1"></div>
+              <div class="door d2"></div>
+              <div class="door d3"></div>
+              <div class="door d4"></div>
+              <div class="door d5"></div>
+              <div class="door d6"></div>
+              <div class="door d7"></div>
+              <div class="door d8"></div>
+              <div class="door d9"></div>
+              <div class="door d10"></div>
+              <div class="door d11"></div>
+              <div class="door d12"></div>
+              <div class="door d13"></div>
+            </div>
+            <div class="compartments-upper">
+              <div class="cph cp1"></div>
+              <div class="cph cp2"></div>
+              <div class="cph cp3"></div>
+              <div class="cph cp4"></div>
+              <div class="cph cp5"></div>
+              <div class="cph cp6"></div>
+              <div class="cph cp7"></div>
+              <div class="cph cp8"></div>
+              <div class="cph cp9"></div>
+              <div class="cph cp10"></div>
+              <div class="cph cp11"></div>
+              <div class="cph cp12"></div>
+            </div>
+            <div class="roof"></div>
+          </div>
+          <div class="hull">
+            <div class="hull-top">
+              <div class="porthole p1"></div>
+              <div class="porthole p2"></div>
+              <div class="porthole p3"></div>
+              <div class="porthole p4"></div>
+              <div class="porthole p5"></div>
+              <div class="porthole p6"></div>
+              <div class="porthole p7"></div>
+              <div class="porthole p8"></div>
+              <div class="porthole p9"></div>
+              <div class="porthole p10"></div>
+              <div class="porthole p11"></div>
+              <div class="porthole p12"></div>
+              <div class="porthole p13"></div>
+              <div class="porthole p14"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="menu">
+        <div>
+          <p class="best-score">
+            Best Score: <span class="best-score results">0</span>
+          </p>
+        </div>
+        <div class="">
+          <p class="lives">Lives: <span class="lives lives-amount"></span></p>
+        </div>
+        <div class="options">
+          <button class="level hint" onclick="getHint(this)">Hint</button>
+          <button
+            class="level chosen-level"
+            data-level="easy"
+            onclick="changeLevel(this)"
+          >
+            Easy
+          </button>
+          <button class="level" data-level="medium" onclick="changeLevel(this)">
+            Medium
+          </button>
+          <button class="level" data-level="hard" onclick="changeLevel(this)">
+            hard
+          </button>
+          <button class="level" onclick="reSetScores()">Reset Scores</button>
+        </div>
+      </div>
+      <h2>Minesweeper</h2>
+      <div class="top-menu">
+        <p class="flag">FLAGS COUNT: <span class="flag-count">0</span></p>
+        <button class="restart-btn" onclick="restart(this)">🙂</button>
+        <p disabled class="timer">
+          <span id="minutes">00</span>:<span id="seconds">00</span>
+        </p>
+      </div>
+      <!-- <div class="hints" onclick="getHint()"></div> -->
 
+      <div class="board-container"></div>
+    </div>
     <script src="js/utils.js"></script>
-    <script src="js/sweepmine.js"></script>
+    <script src="js/minesWeeper.js"></script>
     <script src="js/mines.js"></script>
-</body>
-
+  </body>
 </html>

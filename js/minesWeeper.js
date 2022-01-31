@@ -33,13 +33,15 @@ var gGame = {
   hintsCount: 3,
 };
 
+//Global elements
+var elFlagCounter = document.querySelector(".flag-count");
+var resetBtn = document.querySelector(".restart-btn");
+
 function init() {
   gBoard = buildBoard(gLevel);
-  var elFlagCounter = document.querySelector(".flag");
-  elFlagCounter.innerText = `FLAGS COUNT:`;
+  elFlagCounter.textContent = gGame.flagsCount;
   renderBoard(gBoard);
   renderLives();
-  // renderHints();
   renderBestScore();
   gGameOver = false;
 }
@@ -55,24 +57,29 @@ function restart(elBtn) {
     hintsCount: 3,
   };
   if (gLevel.size > 4) gGame.lifeCount = 3;
-  elBtn = document.querySelector(".restart");
-  elBtn.innerText = FACE;
+  resetBtn.innerText = FACE;
   init();
 }
 
 function changeLevel(elBtn) {
-  var elBtnInfo = {
-    l: +elBtn.dataset.l,
-    m: +elBtn.dataset.m,
-  };
-  gLevel.size = elBtnInfo.l;
-  gLevel.mines = elBtnInfo.m;
+  if (elBtn.dataset.level === "easy") {
+    gLevel.size = 4;
+    gLevel.mines = 2;
+  } else if (elBtn.dataset.level === "medium") {
+    gLevel.size = 8;
+    gLevel.mines = 10;
+  } else {
+    gLevel.size = 12;
+    gLevel.mines = 14;
+  }
+  const elLevelBtns = document.querySelectorAll(".level");
+  elLevelBtns.forEach((btn) => {
+    btn.dataset.level === elBtn.dataset.level
+      ? btn.classList.add("chosen-level")
+      : btn.classList.remove("chosen-level");
+  });
   restart();
 }
-
-// function getHint() {
-
-// }
 
 function buildBoard(gLevel) {
   //fix
@@ -92,30 +99,38 @@ function renderLives() {
   for (var i = 0; i < gGame.lifeCount; i++) {
     livesStr += LIVES;
   }
-  var elLives = document.querySelector(".lives");
+  var elLives = document.querySelector(".lives-amount");
   elLives.innerHTML = livesStr;
 }
 
 function renderBestScore() {
-  var elBestScore = document.querySelector(".best-score");
+  var elBestScore = document.querySelector(".results");
   if (gLevel.size === 4)
-    elBestScore.innerText = `Level Easy - Best Score:${localStorage.bestScoreEasy}`;
+    elBestScore.innerText =
+      localStorage.bestScoreEasy === "" ? "0" : localStorage.bestScoreEasy;
   if (gLevel.size === 8)
-    elBestScore.innerText = `Level Medium - Best Score:${localStorage.bestScoreMedium}`;
+    elBestScore.innerText =
+      localStorage.bestScoreMedium === "" ? "0" : localStorage.bestScoreMedium;
   if (gLevel.size === 12)
-    elBestScore.innerText = `Level Hard - Best Score:${localStorage.bestScoreHard}`;
+    elBestScore.innerText =
+      localStorage.bestScoreHard === "" ? "0" : localStorage.bestScoreHard;
 }
-
-// function renderHints() {
-//     var hintsStr = '';
-//     for (var i = 0; i < gGame.hintsCount; i++) {
-//         hintsStr += HINTSON;
-//     }
-//     var elHints = document.querySelector('.hints');
-//     console.log(elHints);
-//     elHints.innerText = hintsStr;
-
-// }
+function getHint(e) {
+  let showCell = {
+    i: getRandomInt(0, gLevel.size),
+    j: getRandomInt(0, gLevel.size),
+  };
+  if (gBoard[showCell.i][showCell.j].isShown === true) {
+    getHint();
+  } else {
+    gBoard[showCell.i][showCell.j].isShown = true;
+    renderBoard(gBoard);
+    setTimeout(() => {
+      gBoard[showCell.i][showCell.j].isShown = false;
+      renderBoard(gBoard);
+    }, 1500);
+  }
+}
 
 function startGame(elFirstCell) {
   gGame.isOn = true;
@@ -210,7 +225,6 @@ function showBombs() {
 function markFlags(ev) {
   // finish
   ev.preventDefault();
-  var elFlagCounter = document.querySelector(".flag");
   var elCellIdx = {
     i: ev.path[0].dataset.i,
     j: ev.path[0].dataset.j,
@@ -220,35 +234,28 @@ function markFlags(ev) {
   if (!currCell.isMarked) {
     currCell.isMarked = true;
     gGame.flagsCount += 1;
-    console.log(gGame.flagsCount);
-    var flagSTtr = `FLAG COUNT:${gGame.flagsCount}`;
-    elFlagCounter.innerText = flagSTtr;
+    elFlagCounter.innerText = gGame.flagsCount;
   } else {
     currCell.isMarked = false;
     currCell.isShown = false;
     gGame.flagsCount += -1;
-    flagSTtr = `FLAGS COUNT:${gGame.flagsCount}`;
-    elFlagCounter.innerText = flagSTtr;
+    elFlagCounter.innerText = gGame.flagsCount;
   }
   renderBoard(gBoard);
-  checkWin();
 }
 
 function checkWin() {
   var shownCellNum = gLevel.size ** 2 - gLevel.mines;
-  if (gGame.flagsCount === gLevel.mines && gGame.shownCount === shownCellNum) {
-    console.log("cell", shownCellNum, gGame.shownCount, gGame.flagsCount);
+  if (gGame.shownCount === shownCellNum) {
     gameOver(WINNINGFACE);
   }
 }
 
 function gameOver(mode) {
   clearInterval(gIntervalTimer);
-  var resetBtn = document.querySelector(".restart");
   resetBtn.innerText = mode;
   gGameOver = true;
   if (mode === WINNINGFACE) bestScore();
-  console.log(mode);
 }
 
 function bestScore() {
@@ -287,7 +294,5 @@ function reSetScores() {
   localStorage.setItem("bestScoreEasy", "");
   localStorage.setItem("bestScoreMedium", "");
   localStorage.setItem("bestScoreHard", "");
+  renderBestScore();
 }
-
-//add hints.
-//add safe click and redo.

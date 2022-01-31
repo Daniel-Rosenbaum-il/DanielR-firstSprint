@@ -1,123 +1,136 @@
-body{
-    background-image: url('background1.jpg');
-    text-align: center;
-    background-color: rgb(252, 169, 234);
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  overflow: hidden;
+  background: #99ccff;
+  padding: 0px;
+  margin: 0;
+  height: 100vh;
+  text-align: center;
+  color: white;
+}
+
+p {
+  margin: 0;
+}
+.container {
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  z-index: 99999;
+}
+
+.menu {
+  background-color: rgb(56, 55, 56);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  box-shadow: -1px 2px 3px 1px #454545;
+}
+
+.best-score {
+  min-width: 125px;
+  text-align: start;
+  font-size: 1.2rem;
+  color: rgba(247, 94, 94, 0.836);
+}
+.lives {
+  min-width: 135px;
+  text-align: start;
+  font-size: 1.2rem;
+  color: rgba(247, 94, 94, 0.836);
+}
+
+.top-menu {
+  background-color: rgb(194 73 68);
+  margin-bottom: 0.5rem;
+  max-width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-inline: auto;
+  padding: 0.5rem;
+  gap: 0.5rem;
+}
+.options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+.level {
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: none;
+  background-color: #934e79;
+  color: white;
+}
+.level:hover {
+  background-color: rgb(247, 76, 181);
+}
+.chosen-level {
+  background-color: rgb(247, 76, 181);
+}
+.hint {
+  background-color: #e27c56;
+}
+.hint:hover {
+  background-color: #f6a98d;
+}
+.restart-btn {
+  cursor: pointer;
+  padding: 0.25rem;
+  border: none;
+  background-color: inherit;
+  font-size: 1rem;
+  line-height: 0;
+}
+
+span.timer {
+  width: 10px;
+  height: 10px;
+}
+.flag {
+  color: rgb(248, 245, 245);
+}
+.flag span {
+  font-size: 1.05rem;
 }
 table {
-    /* display: flex;
-    justify-content: center;
-    margin: 80px 10px; */
-    margin: auto;
-    background-color: lightgray;
-    height: 400px;
-    width: 400px;
-    border: 5px, solid;
-    
-}
-.best-score{
-    position: absolute;
-    font-size: 22px;
-    color:red;
-
+  margin: auto;
+  background-color: white;
+  box-shadow: -1px 0px 2px 2px #383738;
+  height: min(300px, 650px);
+  width: min(300px, 650px);
+  color: #1a1919;
+  z-index: 100;
+  font-size: 0.75rem;
 }
 .cell {
-    
-    height: 25px;
-    width: 25px;
-    background-color: #C0C0C0;
-    border: 1.5px solid;
-    border-top-color: #ffffff;
-    border-right-color: #7B7B7B;
-    border-bottom-color: #7B7B7B;
-    border-left-color: #ffffff;
-    text-align: center;
-    vertical-align: middle;
-    /* visibility: flex; */
-    cursor: pointer;
+  height: min(25px, 70px);
+  width: min(25px, 70px);
+  background-color: #c0c0c0;
+  border: 1.5px solid;
+  border-top-color: #ffffff;
+  border-right-color: #7b7b7b;
+  border-bottom-color: #7b7b7b;
+  border-left-color: #ffffff;
+  text-align: center;
+  vertical-align: middle;
+  /* visibility: flex; */
+  cursor: pointer;
 }
-span{
-    color:red;
-    margin: 5px;
-    position: relative;
-    margin: left auto;
-    text-align: center;
-    text-decoration: double;
-    font-size: 16px;
-}
-span.timer {
-    width: 10px;
-    height: 10px;
-}
-.flag{
-    color:red;
-}
-.showned{
-    background-color: rgb(252, 196, 210);
-}
-.top-menu{
-    margin: auto;
-    background-color: rgb(184, 161, 161);
-    height: 30px;
-    width: 350px;
-    border: 15px, solid;
-    padding: 10px;
-    padding-bottom: 2px;
 
+.shown {
+  background-color: #fff6f8;
 }
-button.level{
-
-        --c: goldenrod;
-        color: var(--c);
-        font-size: 16px;
-        border: 0.3em solid var(--c);
-        border-radius: 0.5em;
-        width: 8em;
-        height: 3em;
-        text-transform: uppercase;
-        font-weight: bold;
-        font-family: sans-serif;
-        letter-spacing: 0.1em;
-        text-align: center;
-        line-height: 3em;
-        position: relative;
-        overflow: hidden;
-        z-index: 1;
-        transition: 0.5s;
-        margin: 1em;
-        padding-bottom: 30px;
-    
-   }
-.lifes{
-    position:absolute;
-    left:350px;
-    font-size: 30px;
-   }
-.hints{
-    position:absolute;
-    left:355px;
-    bottom: 400px;
-    font-size: 38px;
-    padding-right: 300px;
-    cursor: pointer;
-   }
-.scores{
-    --c: goldenrod;
-    color: var(--c);
-    font-size: 16px;
-    border: 0.3em solid var(--c);
-    border-radius: 0.5em;
-    width: 12em;
-    height: 3em;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-family: sans-serif;
-    letter-spacing: 0.1em;
-    text-align: center;
-    line-height: 3em;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-    transition: 0.5s;
-    margin: 1em;
-    padding-bottom: 30px;
-   }
